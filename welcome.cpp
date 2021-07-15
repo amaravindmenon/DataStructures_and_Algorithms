@@ -3,6 +3,6 @@
 using namespace std;
 
 int main(){
-    cout<<"Welcome to tarun Datasctructure repostry"<<endl;
+    cout<<"Welcome to tarun Data structure repository"<<endl;
     return 0;
 }
