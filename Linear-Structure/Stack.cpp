@@ -89,6 +89,8 @@ void peek(struct Stack *st)
     cout << st->arr[st->top] << endl;
 }
 
+
+
 int main()
 {
     struct Stack *st = createStack();
