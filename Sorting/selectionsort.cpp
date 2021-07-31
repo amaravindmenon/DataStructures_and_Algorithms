@@ -28,7 +28,7 @@ int main(){
                 minindex = j;
             }
         }
-
+        
         swap(arr[i],arr[minindex]);
     }
     
