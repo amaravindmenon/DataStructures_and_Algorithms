@@ -4,81 +4,74 @@
 
 using namespace std;
 
-void display(int n, int arr[])
+void printArray(int a[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        cout << arr[i] << " ";
+        cout << a[i] << " ";
     }
+    cout << endl;
 }
 
-const int N = 1e5 + 10;
-int a[N];
-
-void marge(int l, int r, int mid)
+void merge(int *a, int mid,int l,int h)
 {
-    int lsize = mid - l + 1;
-    int larr[lsize];
+    int i, j, k, b[100];
+    i = l;
+    j = (mid+1);
+    k = l;
 
-    int rightsize = r - mid;
-    int rarr[rightsize + 1];
-
-    for (int i = 0; i < lsize; i++)
+    while (i <=l && i <=h)
     {
-        larr[i] = a[i + 1];
-    }
-
-    for (int i = 0; i < rightsize; i++)
-    {
-        rarr[i] = a[i + mid + 1];
-    }
-
-    larr[lsize] = rarr[rightsize] = INT_MAX;
-
-    int li = 0;
-    int ri = 0;
-
-    for (int i = 0; i <= r; i++)
-    {
-        if (larr[li] < rarr[ri])
+        if (a[i] < a[j])
         {
-            a[i] = larr[li];
-            li++;
+            b[k] = a[i];
+            i++;
         }
         else
         {
-            a[i] = rarr[ri];
-            ri++;
+            b[k] = a[j];
+            j++;
         }
+        k++;
     }
+    while (i <= mid)
+    {
+        b[k] = a[i];
+        k++;
+        i++;
+    }
+    while (j <= h)
+    {
+        b[k] = a[j];
+        j++;
+        k++;
+    }
+
+    for (int i = 0; i < h; i++)
+    {
+        a[i] = b[i];
+    }
+    
 }
 
-void margeSort(int l, int r)
+void mergeSort(int *a, int l, int h)
 {
-    if (l == r)
-        return;
-    int mid = (l + r) / 2;
-    margeSort(l, mid);
-    margeSort(mid + 1, r);
-    marge(l, r, mid);
+    int mid;
+    if (l < h)
+    {
+        mid = (l + h) / 2;   
+        mergeSort(a, l, mid);
+        mergeSort(a, mid + 1, h);
+        merge(a,mid, l,h);
+    }
 }
 
 int main()
 {
-    int n;
-    cin >> n;
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> a[i];
-    }
-
-    display(n, a);
-
-    margeSort(0, n - 1);
-
-    cout << endl;
-    display(n, a);
-
+    int a[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
+    int n = 9;
+    printArray(a, n);
+    mergeSort(a, 0, n - 1);
+    printArray(a, n);
     return 0;
 }
