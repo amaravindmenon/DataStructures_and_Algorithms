@@ -73,7 +73,6 @@ int main(){
             }
             cout<<endl;
         }
-        
     }
     
 }
