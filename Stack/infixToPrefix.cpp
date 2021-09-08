@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stack>
 #include <math.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -24,24 +25,26 @@ int prec(char c)
     }
 }
 
-string infixToPostfix(string s)
+string infixToPrefix(string s)
 {
-    stack<int> st;
+    reverse(s.begin(), s.end());
+
+    stack<char> st;
     string res;
 
     for (int i = 0; i < s.length(); i++)
     {
-        if ((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z'))
+        if ((s[i] >= 'a' && s[i] <= 'z') || (s[i] > 'A' && s[i] <= 'Z'))
         {
             res += s[i];
         }
-        else if (s[i] == '(')
+        else if (s[i] == ')')
         {
             st.push(s[i]);
         }
-        else if (s[i] == ')')
+        else if (s[i] == '(')
         {
-            while (!st.empty() && st.top() != '(')
+            while (!st.empty() && st.top() != ')')
             {
                 res += st.top();
                 st.pop();
@@ -53,7 +56,7 @@ string infixToPostfix(string s)
         }
         else
         {
-            while (!st.empty() && prec(st.top()) > prec(s[i]))
+            if (!st.empty() && prec(st.top()) >= prec(s[i]))
             {
                 res += st.top();
                 st.pop();
@@ -61,17 +64,21 @@ string infixToPostfix(string s)
             st.push(s[i]);
         }
     }
+
     while (!st.empty())
     {
         res += st.top();
         st.pop();
     }
 
+    reverse(res.begin(), res.end());
+
     return res;
+    ;
 }
 
 int main()
 {
-    string s = "(a-b/c)*(a/k-l)";
-    cout << infixToPostfix(s);
+    string s = "((a-b/c)*(a/k-l))";
+    cout << infixToPrefix(s);
 }
