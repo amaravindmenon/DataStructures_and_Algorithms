@@ -12,9 +12,6 @@ struct Node
 
 struct Node *createNode(int data)
 {
-    // int data;
-    // cout << "Enter the data"<<endl;
-    // cin>>data;
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
     newNode->data = data;
     newNode->left = NULL;
