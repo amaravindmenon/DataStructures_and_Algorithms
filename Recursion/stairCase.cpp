@@ -9,9 +9,8 @@ int upStair(int n)
         return 0;
     }
 
-    if(n == 0){
-        return 1;
-    }
+    if(n == 0 || n == 1) return 1;
+
     return upStair(n-1) + upStair(n-2) + upStair(n-3);
 
 }
