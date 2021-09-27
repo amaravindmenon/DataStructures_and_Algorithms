@@ -118,7 +118,6 @@ int sumAtK(struct Node *root, int k)
             currentLevel++;
         }
     }
-
     return sum;
 }
 
@@ -134,6 +133,17 @@ int sumOfNodesInTree(struct Node *root)
     if (root == NULL)
         return 0;
     return sumOfNodesInTree(root->left) + sumOfNodesInTree(root->right) + root->data;
+}
+
+int calcHeight(struct Node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    int lheight = calcHeight(root->left);
+    int rheight = calcHeight(root->right);
+
+    return max(lheight, rheight) + 1;
 }
 
 int main()
@@ -152,5 +162,7 @@ int main()
     // cout << sumAtK(root, 3);
     // cout << countNodesInBinaryTree(root);
 
-    cout << sumOfNodesInTree(root);
+    // cout << sumOfNodesInTree(root);
+
+    cout << calcHeight(root);
 }
